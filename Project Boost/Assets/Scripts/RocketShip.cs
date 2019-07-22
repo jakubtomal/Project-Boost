@@ -15,6 +15,21 @@ public class RocketShip : MonoBehaviour
         ProcessInput();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        switch(collision.gameObject.tag)
+        {
+            case "Friendly":
+                break;
+            default:
+                Debug.Log("DIE");
+                break;
+
+        }
+
+    }
+
     private void ProcessInput()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -40,7 +55,10 @@ public class RocketShip : MonoBehaviour
 
     private void RotateOnZAxis(float speed)
     {
+        gameObject.GetComponent<Rigidbody>().freezeRotation = false;
         gameObject.transform.Rotate(Vector3.forward * speed * Time.deltaTime);
+        gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+
     }
 
     private void Fly(float speed)
